@@ -9,11 +9,6 @@ seller = executor
 
 Simple Escrow service without hard-modifiers and state VALUES
 
-
-
-
-
-
 **/
 
 
@@ -30,7 +25,7 @@ contract EscrowSimple {
     seller = _seller;
     arbiter = _arbiter;
   }
-
+ 
   //make payment to seller
   function payoutToSeller() public {
     if(msg.sender == buyer || msg.sender == arbiter) {
@@ -48,6 +43,14 @@ contract EscrowSimple {
   //query for balance
   function getBalance() public constant returns (uint) {
     return this.balance;
+  }
+
+  function() public payable { 
+      
+  }
+
+  function receiveMoney() public payable { 
+    
   }
 
 }
