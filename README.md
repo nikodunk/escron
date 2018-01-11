@@ -1,21 +1,26 @@
 
-node_modules/.bin/ganache-cli
 
-[0] or coinbase does:
+//---------------------------------------------
+// L  O  C  A  L
 
 
-truffle console
-compile
-migrate	
 
+local blockchain up:
+$ node_modules/.bin/ganache-cli
+
+web3.eth.accounts[0] MAKES CONTRACT:
+$ truffle console
+$ compile
+$ migrate	
+
+new tab serve frontend:
 npm run dev
 
 __________________________________________________________________________________
 
-web3.eth.accounts[1] does:
 
-To check contract balance:
-	
+
+To check contract balance (should be 0):
 Purchase.deployed().then(instance => instance.getBalance())
 
 Check [0] balance:
@@ -25,11 +30,11 @@ Check [1] balance:
 web3.eth.getBalance(web3.eth.accounts[1])
 
 
-SEND TO CONTRACT:
+web3.eth.accounts[1] SENDS TO CONTRACT:
 Purchase.deployed().then(function(instance){return instance.confirmPurchase({from: web3.eth.accounts[1], value: web3.toWei(10, 'ether')})})
 
 
-RELEASE FROM CONTRACT:
+web3.eth.accounts[1] RELEASES FROM CONTRACT:
 Purchase.deployed().then(function(instance){return instance.confirmReceived({from: web3.eth.accounts[1]})})
 
 
@@ -47,4 +52,39 @@ condition(msg.value == (2 * value))
 
 
 
-NEXT STEP: TEST RINKEBY
+
+
+
+
+
+
+
+//---------------------------------------------
+// R I N K E B Y
+
+
+
+// blockchain sync 
+geth --rinkeby --rpc --rpcapi db,eth,net,web3,personal
+
+//in new tab, compile and deploy contract
+truffle console --network rinkeby
+
+// if you don't have an account:
+// x = web3.personal.newAccount('pw')
+// web3.eth.getBalance("yourAcctNumber")
+// web3.eth.accounts
+
+web3.personal.unlockAccount("yourAcctNumber", 'pw', 15000)
+
+truffle migrate --network rinkeby
+
+to check:
+Purchase.deployed().then(function(contractInstance) {contractInstance.getBalance()})
+
+// new tab frontend serve:
+npm run dev
+
+//to deploy:
+// npm run build, copy app.js and index.html to root folder, github push master.
+
