@@ -36,6 +36,8 @@
     "ethereumjs-testrpc": "^6.0.3"
   },
   "dependencies": {
-    "jquery": "^3.2.1"
+    "ganache-cli": "^6.0.3",
+    "jquery": "^3.2.1",
+    "keccak": "^1.4.0"
   }
 }

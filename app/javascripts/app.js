@@ -4,7 +4,9 @@ import "../stylesheets/app.css";
 // Import libraries we need.
 import { default as Web3} from 'web3';
 import { default as contract } from 'truffle-contract'
-import { default as $ } from 'jquery'
+import { default as $ } from 'jquery';
+
+
 
 /*
  * When you compile and deploy your contract,
@@ -16,42 +18,15 @@ import { default as $ } from 'jquery'
  * https://gist.github.com/maheshmurthy/f6e96d6b3fff4cd4fa7f892de8a1a1b4#file-index-js
  */
 
-import contract_artifacts from '../../build/contracts/EscrowSimple.json'
+import contract_artifacts from '../../build/contracts/Purchase.json'
 
 var Contract = contract(contract_artifacts);
 
-
-
-window.getBalance = function() {
+window.getBalance = function(){     
     Contract.deployed().then(function(contractInstance) {
-      contractInstance.getBalance().then(function(result) {
-        console.log(result)
-        $("#balance").html(result.c.toString()/10000 + " Ether");
-      });
-    });
-}
-
-window._refundToBuyer = function() {
-  Contract.deployed().then(function(contractInstance) {
-      var contractAddress = contractInstance.address
-      var address = web3.eth.accounts[0]
-      console.warn("working")
-      // contractInstance.refundToBuyer().then(function(result) {
-      //   console.log(result)
-      //   // $("#balance").html(result.c.toString()/10000 + " Ether");
-      // });
-    });
-}
-
-window._payoutToSeller = function() {
-  Contract.deployed().then(function(contractInstance) {
-      var contractAddress = contractInstance.address
-      var address = web3.eth.accounts[0]
-      console.warn("working")
-      // contractInstance.refundToBuyer().then(function(result) {
-      //   console.log(result)
-      //   // $("#balance").html(result.c.toString()/10000 + " Ether");
-      // });
+        contractInstance.getBalance().then(function(result) {
+          $("#balance").html(result.c[0])
+        });
     });
 }
 
@@ -63,31 +38,56 @@ window.getAddress = function() {
     });
 }
 
+//Purchase.deployed().then(function(instance){return instance.confirmPurchase()})
 
-window._sendToEscrow = function(){
-       Contract.deployed().then(function(contractInstance) {
+//Purchase.deployed().then(function(instance){return instance.confirmPurchase({from: web3.eth.accounts[0], value:10})})
 
-           var amount = $("#amount").val()
-           var contractAddress = contractInstance.address
+//Purchase.deployed().then(function(instance){return instance.confirmPurchase({from: web3.eth.accounts[0], value: web3.toWei(10, 'ether')})})
 
-           // $("#address").html(contractInstance.address);
-           // var contractAddress = document.getElementById("address").innerHTML
 
-           return web3.eth.sendTransaction({
-                            from: web3.eth.accounts[0], 
-                            to: contractAddress, 
-                            value: web3.toWei(amount, 'ether')}, function(error, result){
-             if (!error) {
-                console.log(result);
-                } else {
-                  console.error(error);
-                }
-              })
-        });
-       
-       
-       
+window.confirmPurchase = function(){
+
+    //web3.eth.defaultAccount = web3.eth.accounts[0]
+    Contract.deployed()
+      .then(function(contractInstance) {
+      // console.log(contractInstance)
+      // console.log(contractInstance.address)
+      // console.log(web3.eth.accounts[0])
+
+      var amount = $("#amount").val()
+      console.log('confirmpurchase')
+      return contractInstance.confirmPurchase({from: web3.eth.accounts[0], value: web3.toWei(amount, 'ether'), gas: 87000})
+
+    //   contractInstance.confirmPurchase.sendTransaction(
+                    
+    //                 function(result){
+    //                     console.log(result)
+    //                 },
+    //                 {
+    //                 from: web3.eth.accounts[0], 
+    //                 // to: contractAddress, 
+    //                 value: web3.toWei(amount, 'ether'),
+    //                 gas: 87000
+    //                 }
+    //   )
+    });
 }
+
+//Purchase.deployed().then(function(instance){return instance.confirmReceived({from: web3.eth.accounts[1]})})
+
+
+window.confirmReceived = function(){
+      
+      Contract.deployed().then(function(contractInstance) {
+        
+        var receiver = $("#receiver").val()
+        console.log('confirm received')
+        contractInstance.confirmReceived({from: web3.eth.accounts[0]}).then(function(result) {
+          console.log(result)
+        });
+    });
+}
+
 
 
 

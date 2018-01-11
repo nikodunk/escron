@@ -1,5 +1,5 @@
-var Escrow = artifacts.require("./EscrowSimple.sol");
+var Purchase = artifacts.require("./Purchase.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(Escrow);
+  deployer.deploy(Purchase);
 };
