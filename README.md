@@ -21,24 +21,33 @@ npm run dev
 
 
 ADDRESSES:
-Purchase.deployed().then(instance => instance.getBalance())
-// web3.eth.accounts[0] = BUYER, escrow owner
-Purchase.deployed().then(instance => instance.buyer.call())
-// web3.eth.accounts[1] = SELLER
-Purchase.deployed().then(instance => instance.seller.call())
+	
+	Purchase.deployed().then(instance => instance.getBalance())
+
+web3.eth.accounts[0] = BUYER, escrow owner
+
+	Purchase.deployed().then(instance => instance.buyer.call())
+
+web3.eth.accounts[1] = SELLER
+	
+	Purchase.deployed().then(instance => instance.seller.call())
 
 
 CHECK BALANCES:
-web3.fromWei(web3.eth.getBalance(web3.eth.accounts[0]).toNumber(), 'ether')
-web3.fromWei(web3.eth.getBalance(web3.eth.accounts[1]).toNumber(), 'ether')
+
+	web3.fromWei(web3.eth.getBalance(web3.eth.accounts[0]).toNumber(), 'ether')
+
+	web3.fromWei(web3.eth.getBalance(web3.eth.accounts[1]).toNumber(), 'ether')
 
 
 SEND ETHER FROM 0 TO CONTRACT:
-Purchase.deployed().then(instance => instance.payIn({from: web3.eth.accounts[0], value: web3.toWei(10, 'ether') }))
+
+	Purchase.deployed().then(instance => instance.payIn({from: web3.eth.accounts[0], value: web3.toWei(10, 'ether') }))
 
 
 PAY OUT ETHER FROM CONTRACT TO 1:
-Purchase.deployed().then(instance => instance.payoutToSeller({from: web3.eth.accounts[0]}) )
+
+	Purchase.deployed().then(instance => instance.payoutToSeller({from: web3.eth.accounts[0]}) )
 
 
 //---------------------------------------------
@@ -61,6 +70,9 @@ Purchase.deployed().then(instance => instance.payoutToSeller({from: web3.eth.acc
 
 	web3.personal.unlockAccount("0x2df219a1ae3845ab32a041499db27d4bfdb43876", 'password', 15000)
 
+	web3.personal.unlockAccount("0x43928ec2bb4ea1eb6a77a5fd9caf36ca7b15600f", 'pw', 15000)
+
+
 	compile
 	migrate --reset
 
@@ -68,26 +80,35 @@ to check:
 
 
 ADDRESSES:
-Purchase.deployed().then(instance => instance.getBalance())
-	// web3.eth.accounts[0] = BUYER, escrow owner
-Purchase.deployed().then(instance => instance.buyer.call())
-	// web3.eth.accounts[1] = SELLER
-Purchase.deployed().then(instance => instance.seller.call())
+	
+	Purchase.deployed().then(instance => instance.getBalance())
+	
+web3.eth.accounts[0] = BUYER, escrow owner
+	
+	Purchase.deployed().then(instance => instance.buyer.call())
+
+web3.eth.accounts[1] = SELLER
+
+	Purchase.deployed().then(instance => instance.seller.call())
 
 
 
 CHECK BALANCES:
-web3.fromWei(web3.eth.getBalance(web3.eth.accounts[0]).toNumber(), 'ether')
-web3.fromWei(web3.eth.getBalance(web3.eth.accounts[1]).toNumber(), 'ether')
+
+	web3.fromWei(web3.eth.getBalance(web3.eth.accounts[0]).toNumber(), 'ether')
+
+	web3.fromWei(web3.eth.getBalance(web3.eth.accounts[1]).toNumber(), 'ether')
 
 
 
 SEND ETHER FROM 0 TO CONTRACT:
-Purchase.deployed().then(instance => instance.payIn({from: web3.eth.accounts[0], value: web3.toWei(10, 'ether') }))
+
+	Purchase.deployed().then(instance => instance.payIn({from: web3.eth.accounts[0], value: web3.toWei(1, 'ether') }))
 
 
 PAY OUT ETHER FROM CONTRACT TO 1:
-Purchase.deployed().then(instance => instance.payoutToSeller({from: web3.eth.accounts[0]}) )
+
+	Purchase.deployed().then(instance => instance.payoutToSeller({from: web3.eth.accounts[0]}) )
 
 
 

@@ -25,7 +25,7 @@ var Contract = contract(contract_artifacts);
 window.getBalance = function(){     
     Contract.deployed().then(instance => {
       instance.getBalance().then( result => {
-          $("#balance").html(result.c[0])
+          $("#balance").html(result.c[0]/10000)
         });
     });
 }
@@ -36,7 +36,7 @@ window.payIn = function(){
     Contract.deployed().then(instance => {
       var amount = $("#amount").val()
       console.log('payIn')
-      instance.payIn({from: web3.eth.accounts[0], value: web3.toWei(amount, 'ether'), gas: 87000})
+      instance.payIn({from: web3.eth.accounts[0], value: web3.toWei(1, 'ether') })
     });
 }
 

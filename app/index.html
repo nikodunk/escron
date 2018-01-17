@@ -8,22 +8,22 @@
 <body>
   <h1>Escron</h1>
   
-  <h3>Contract has <span class="black"><span id="balance">N/A</span></span> in escrow</h3>
+  <h3>Contract has <span class="black"><span id="balance">N/A</span></span> Ether in escrow</h3>
   <button onclick="getBalance()">Get Balance</button><br><br><br>
 
 <!--   <h3>Contract's address: <span class="black"><span id="address">N/A</span></span></h3>
   <button onclick="getAddress()">Get Address</button><br><br><br> -->
 
   <h1>Send ether to escrow</h1><br>
-  <label for="amount">Amount:</label>
-  <input type="text" id="amount" placeholder="e.g., 95"></input>
-  <button id="send" onclick="payIn()">Send me the goods, Pay to escrow</button><br><br><br><br>
+  <!-- <label for="amount">Amount:</label>
+  <input type="text" id="amount" placeholder="e.g., 95"></input> -->
+  <button id="send" onclick="payIn()">Send me the goods, Pay 1 Ether to escrow</button><br><br><br><br>
 
   <!-- <label for="receiver">Final Address:</label><br>
   <input type="text" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input><br><br> -->
   
   
-  <button onclick="confirmReceived()">Confirm Received Goods</button>
+  <button onclick="payoutToSeller()">Confirm Received Goods</button>
   <!-- <button onclick="abort()">Abort</button> -->
 
   <span id="status"></span>
