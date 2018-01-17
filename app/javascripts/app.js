@@ -23,66 +23,27 @@ import contract_artifacts from '../../build/contracts/Purchase.json'
 var Contract = contract(contract_artifacts);
 
 window.getBalance = function(){     
-    Contract.deployed().then(function(contractInstance) {
-        contractInstance.getBalance().then(function(result) {
+    Contract.deployed().then(instance => {
+      instance.getBalance().then( result => {
           $("#balance").html(result.c[0])
         });
     });
 }
 
 
-window.getAddress = function() {
-    Contract.deployed().then(function(contractInstance) {
-      // console.log(contractInstance.address)
-      $("#address").html(contractInstance.address);
-    });
-}
 
-//Purchase.deployed().then(function(instance){return instance.confirmPurchase()})
-
-//Purchase.deployed().then(function(instance){return instance.confirmPurchase({from: web3.eth.accounts[0], value:10})})
-
-//Purchase.deployed().then(function(instance){return instance.confirmPurchase({from: web3.eth.accounts[0], value: web3.toWei(10, 'ether')})})
-
-
-window.confirmPurchase = function(){
-
-    //web3.eth.defaultAccount = web3.eth.accounts[0]
-    Contract.deployed()
-      .then(function(contractInstance) {
-      // console.log(contractInstance)
-      // console.log(contractInstance.address)
-      // console.log(web3.eth.accounts[0])
-
+window.payIn = function(){
+    Contract.deployed().then(instance => {
       var amount = $("#amount").val()
-      console.log('confirmpurchase')
-      return contractInstance.confirmPurchase({from: web3.eth.accounts[0], value: web3.toWei(amount, 'ether'), gas: 87000})
-
-    //   contractInstance.confirmPurchase.sendTransaction(
-                    
-    //                 function(result){
-    //                     console.log(result)
-    //                 },
-    //                 {
-    //                 from: web3.eth.accounts[0], 
-    //                 // to: contractAddress, 
-    //                 value: web3.toWei(amount, 'ether'),
-    //                 gas: 87000
-    //                 }
-    //   )
+      console.log('payIn')
+      instance.payIn({from: web3.eth.accounts[0], value: web3.toWei(amount, 'ether'), gas: 87000})
     });
 }
 
-//Purchase.deployed().then(function(instance){return instance.confirmReceived({from: web3.eth.accounts[1]})})
 
-
-window.confirmReceived = function(){
-      
-      Contract.deployed().then(function(contractInstance) {
-        
-        var receiver = $("#receiver").val()
-        console.log('confirm received')
-        contractInstance.confirmReceived({from: web3.eth.accounts[0]}).then(function(result) {
+window.payoutToSeller = function(){
+      Contract.deployed().then(instance => {
+        instance.payoutToSeller({from: web3.eth.accounts[0]}).then(result => {
           console.log(result)
         });
     });
